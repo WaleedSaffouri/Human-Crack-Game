@@ -1,0 +1,103 @@
+import random
+
+# function to generate a random word
+def generate_word():
+    words = ["python", "programming", "language", "computer", "science"]
+    return random.choice(words)
+
+#function to shuffle the letters of a word
+def shuffle_word(word):
+    word = list(word)
+    random.shuffle(word)
+    return "".join(word)
+
+#funtion to check if the user's guess is correct
+def check_guess(guess, word):
+    if guess == word:
+        return True
+    else:
+        return False
+
+#function to play the game
+def play_game():
+    #generate a random word
+    word = generate_word()
+    #shuffle the letters of the word
+    shuffled_word = shuffle_word(word)
+    print("Unscramble the word):", shuffled_word)
+
+    #loop for multiple guesses
+    for i in range(3):
+        guess = input("Enter your guess: ")
+        if check_guess(guess, word):
+            print("congratulations, you guessed correctly!")
+            break
+        else:
+            if i < 2:
+                print("Incorrect,try again.")
+            else:
+                print("Sorry, you have exceeded the number of guesses.")
+
+    #condition to check if the user has exhausted all guesses
+    if i == 2:
+        print("the correct word was",word)
+        print("you will try again")
+        play_game() #This is the recursive call to play the game again
+    else:
+        #loop for play the game again
+        while True:
+            play_again = input("do you want to play again? (y/n)")
+            if play_again =='y':
+                play_game() #This is the recursive call to play the game again
+                break
+            elif play_again == 'n':
+                print("thank you for playing!")
+                break
+            else:
+                print("Invalid input, please enter 'y' or 'n'")
+                #loop for invalid input
+                for i in range(3):
+                    play_again = input("do you want to play again? (y/n)")
+
+                    if play_again == 'y':
+                        play_game() #This is the recursive call to play the game again
+
+                        break
+                    elif play_again == 'n':
+                        print("Thank you for playing!")
+                        break
+                    else:
+                        print("Invalid input, please enter 'y' or 'n'")
+                        if i == 2:
+                            print("You have exceeded the maximum tries")
+                            break
+                #funtion call to play the game
+
+def MainMenu():
+    print("\n")
+    print("======================")
+    print("***Human Crack Game***")
+    print("======================")
+    print("[1] Start Game")
+    print("[2] Game Description")
+    print("\n")
+    option = int(input("Select from the menu: "))
+    while option < 1 or option > 2:
+        option = int(input("Error -- Select from the menu: "))
+    if option == 1:
+        play_game()
+    elif option == 2:
+        print("/n")
+        print("===Game Description===")
+        print("This game scrambles english words and your job is to\n figure out what the scrambled word is")
+
+        backoption=str(input("Press Enter to go to the main menu"))
+
+
+#this is where the program starts
+MainMenu()
+
+
+
+
+
